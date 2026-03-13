@@ -1,0 +1,36 @@
+1. create venv and activate it
+2. create requirements.txt file, add the requirements and install it 
+3. run django-admin startproject mysite . to create the project
+django-admin.py is a script that will create the directories and files for you
+4. in settings.py, debug = true and ALLOWED_HOSTS = [] should be changed when you deploy the app
+
+When it's True: If your code crashes, Django shows a yellow screen with a huge amount of detail. It shows exactly which line of Python failed, what your database variables are, your secret settings, and even your file paths (like /Users/aadip/projects/...).
+
+The Danger: If a hacker sees this, they basically have a map of your entire server. They can see your database structure and configuration.
+
+When it's False: If the site crashes, the user just sees a generic "500 Internal Server Error" page. No secrets leaked.
+
+ALLOWED_HOSTS = [] 
+
+Django is "Secure by Default." If you leave the list empty, Django assumes you haven't decided who is allowed in yet. To be safe, it blocks everyone except the essential local tests.
+
+When DEBUG = True: Django automatically adds ['localhost', '127.0.0.1', '[::1]'] to that empty list so you can at least see your own work on your Mac.
+
+When DEBUG = False: Django stops being "nice." If that list is empty, every single request (even from your own browser) will return a DisallowedHost / 400 Bad Request error.
+
+5. starting the project: python manage.py runserver
+
+6. apps: Ex: blog
+So we have a main project, which includes many apps for different functionalities.
+After creating an app, also add it in the installed apps list in settings.py
+
+7. model is a special object in django. it is a way to create a table in db using only python.
+in the blog/models.py, we define the attributes (relate with sql)
+there is a foreign key and other attributes defined like in sql.
+
+8. now we just made the model, we also have to add it to the database.
+python manage.py makemigrations blog --> to tell django that we made some changes in our model
+
+Django prepared a migration file for us that we now have to apply to our database. 
+Type python manage.py migrate blog
+
