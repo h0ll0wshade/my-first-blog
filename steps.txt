@@ -34,3 +34,44 @@ python manage.py makemigrations blog --> to tell django that we made some change
 Django prepared a migration file for us that we now have to apply to our database. 
 Type python manage.py migrate blog
 
+9. some deployement steps
+
+10. views
+receive the user request, fetch data from database, create a response
+
+Technically, views are Python functions. These functions take request as a parameter and return HttpResponse.
+
+11. add html in the templates folder (in blog).
+in templates, make a directory for every app that you want separately, like we make blog directory
+
+12. querySet -> talking to the database
+we have some python commands that can simplify the SQL queries. basically we can write simple python code that can interact with the DB. This code is converted to SQL queries by the QuerySet. But it doesnt execute every line of python code as is. It does this lazily, executing only when truly required.
+
+You write the QuerySet in views.py
+
+13. to display dynamic data: we can pass in params in the render function in views, that we wanna display dynamically as
+return render(request, 'blog/post_list.html', {"posts" : posts})
+
+inside {} we pass posts, we wanna display it dynamically
+
+14. now to put these in the html: django has a feature, writing inside {{ posts }} for variables
+bcz html is completely static
+
+for a loop, this is syntax:
+{% for post in posts %}
+    {{ post }}
+{% endfor %}
+
+we can also write like:
+{% for post in posts %}
+    <article>
+        <time>published: {{ post.published_date }}</time>
+        <h2><a href="">{{ post.title }}</a></h2>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </article>
+{% endfor %}
+
+
+Now moving to django rest framework
+1. install django rest framework
+2. add rest_framework in intalled apps
